@@ -27,6 +27,7 @@ namespace OGM.api.Controllers
             if (!result)
                 return BadRequest("Registration failed. Email might already exist or an error occurred.");
 
+
             return Ok("User registered successfully.");
         }
 
