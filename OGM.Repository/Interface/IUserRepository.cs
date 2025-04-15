@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OGM.Repository.Interface
 {
-    public interface IUserRegistration
+    public interface IUserRepository
     {
         Task<bool> RegisterUserAsync(User user);
     }

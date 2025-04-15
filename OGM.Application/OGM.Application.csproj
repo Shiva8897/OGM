@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Interface\" />
-    <Folder Include="Service\" />
+    <ProjectReference Include="..\OGM.Domain\OGM.Domain.csproj" />
+    <ProjectReference Include="..\OGM.Repository\OGM.Repository.csproj" />
   </ItemGroup>
 
 </Project>

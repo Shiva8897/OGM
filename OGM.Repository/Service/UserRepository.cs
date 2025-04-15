@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace OGM.Repository.Service
 {
-    public class UserRegistration : IUserRegistration
+    public class UserRepository : IUserRepository
     {
         private readonly PlayCricketDbContext _context;
 
-        public UserRegistration(PlayCricketDbContext context)
+        public UserRepository(PlayCricketDbContext context)
         {
             _context = context;
         }

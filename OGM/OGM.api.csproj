@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OGM.Application\OGM.Application.csproj" />
     <ProjectReference Include="..\OGM.Repository\OGM.Repository.csproj" />
   </ItemGroup>
 
