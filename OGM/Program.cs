@@ -1,8 +1,17 @@
+using OGM.Repository.Interface;
+using OGM.Repository.Service;
+using OGM.Infra.sql;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDbContext<PlayCricketDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DBConnection")));
+
 
 builder.Services.AddControllers();
+builder.Services.AddScoped<IUserRegistration, UserRegistration>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
