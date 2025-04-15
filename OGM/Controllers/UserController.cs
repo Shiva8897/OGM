@@ -19,9 +19,9 @@ namespace OGM.api.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromForm] RegisterUserDto UserDto)
+        public async Task<IActionResult> Register([FromBody] User user)
         {
-            var result = await _userService.RegisterUserAsync(UserDto);
+            var result = await _userService.RegisterUserAsync(user);
 
             if (!result)
                 return BadRequest("Registration failed. Email might already exist or an error occurred.");
