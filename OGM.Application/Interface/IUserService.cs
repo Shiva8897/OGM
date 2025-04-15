@@ -9,6 +9,6 @@ namespace OGM.Application.Interface
 {
     public interface IUserService
     {
-        Task<bool> RegisterUserAsync(User user);
+        Task<bool> RegisterUserAsync(RegisterUserDto RegisterDto);
     }
 }

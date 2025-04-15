@@ -17,8 +17,26 @@ namespace OGM.Application.Service
             _userRepo = userRepo;
         }
 
-        public async Task<bool> RegisterUserAsync(User user)
+        public async Task<bool> RegisterUserAsync(RegisterUserDto RegisterDto)
         {
+            var user = new User
+            {
+                FirstName = RegisterDto.FirstName,
+                LastName = RegisterDto.LastName,
+                Email = RegisterDto.Email,
+                Password_Hash = RegisterDto.Password,
+                PhoneNumber = RegisterDto.PhoneNumber,
+                Gender = RegisterDto.Gender,
+                CreatedAt = DateTime.Now
+            };
+
+            if (RegisterDto.ProfilePhoto is { Length: > 0 })
+            {
+                using var ms = new MemoryStream();
+                await RegisterDto.ProfilePhoto.CopyToAsync(ms);
+                user.Profile_Photo = ms.ToArray();
+            }
+
             return await _userRepo.RegisterUserAsync(user);
         }
     }
