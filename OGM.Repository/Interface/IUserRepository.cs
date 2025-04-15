@@ -10,5 +10,7 @@ namespace OGM.Repository.Interface
     public interface IUserRepository
     {
         Task<bool> RegisterUserAsync(User user);
+        Task<User> LoginUserAsync(string email, string password);
+
     }
 }

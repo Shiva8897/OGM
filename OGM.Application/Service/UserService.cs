@@ -21,5 +21,11 @@ namespace OGM.Application.Service
         {
             return await _userRepo.RegisterUserAsync(user);
         }
+
+        public async Task<User> LoginUserAsync(string email, string password)
+        {
+            return await _userRepo.LoginUserAsync(email, password);
+        }
+
     }
 }
