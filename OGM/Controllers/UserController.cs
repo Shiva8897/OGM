@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using OGM.Repository.Interface;
 using OGM.Domain.Entities;
 using System.Threading.Tasks;
+using OGM.Application.Interface;
 
 namespace OGM.api.Controllers
 {
@@ -10,9 +11,9 @@ namespace OGM.api.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        public readonly IUserRegistration _userService;
+        public readonly IUserService _userService;
 
-        public UserController(IUserRegistration userService)
+        public UserController(IUserService userService)
         {
             _userService = userService;
         }
