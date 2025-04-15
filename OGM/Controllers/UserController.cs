@@ -5,6 +5,7 @@ using OGM.Domain.Entities;
 using System.Threading.Tasks;
 using OGM.Application.Interface;
 
+
 namespace OGM.api.Controllers
 {
     [Route("api/[controller]")]
@@ -27,6 +28,17 @@ namespace OGM.api.Controllers
                 return BadRequest("Registration failed. Email might already exist or an error occurred.");
 
             return Ok("User registered successfully.");
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] LoginRequest request)
+        {
+            var user = await _userService.LoginUserAsync(request.Email ?? "", request.Password ?? "");
+
+            if (user == null)
+                return Unauthorized("Invalid email or password.");
+
+            return Ok("Login successful");
         }
     }
 }

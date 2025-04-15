@@ -29,7 +29,8 @@ namespace OGM.Repository.Service
                     return false;
                 }
                 //Hash
-                user.Password_Hash = BCrypt.Net.BCrypt.HashPassword(user.Password_Hash);
+                string plainPassword = user.Password_Hash ?? "";
+                user.Password_Hash = BCrypt.Net.BCrypt.HashPassword(plainPassword);
 
                 //Save
                 _context.Users.Add(user);
@@ -47,5 +48,19 @@ namespace OGM.Repository.Service
         {
             return BCrypt.Net.BCrypt.Verify(plainPassword, hashedPassword);
         }
+
+        public async Task<User?> LoginUserAsync(string email, string password)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+
+            if (user == null)
+                return null;
+
+            // Verify hashed password
+            bool isPasswordValid = BCrypt.Net.BCrypt.Verify(password, user.Password_Hash);
+
+            return isPasswordValid ? user : null;
+        }
+
     }
 }
