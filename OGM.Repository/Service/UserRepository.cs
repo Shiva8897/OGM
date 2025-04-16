@@ -19,30 +19,34 @@ namespace OGM.Repository.Service
             _context = context;
         }
 
-        public async Task<bool> RegisterUserAsync(User user)
+        public async Task<RegistrationResponse> RegisterUserAsync(User user)
         {
             try
             {
+                if (user == null)
+                    return new RegistrationResponse { Success = false, Message = "User cannot be null." };
+
                 var emailExists = await _context.Users.AnyAsync(u => u.Email == user.Email);
                 if (emailExists)
-                {
-                    return false;
-                }
+                    return new RegistrationResponse { Success = false, Message = "Email already registered." };
+
                 //Hash
                 string plainPassword = user.Password_Hash ?? "";
-                user.Password_Hash = BCrypt.Net.BCrypt.HashPassword(plainPassword);
+                user.Password_Hash = BCrypt.Net.BCrypt.HashPassword(user.Password_Hash);
 
                 //Save
                 _context.Users.Add(user);
                 await _context.SaveChangesAsync();
-                return true;
+
+                return new RegistrationResponse { Success = true, Message = "Registration successful." };
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error during user registration: {ex.Message}");
-                return false;
+                return new RegistrationResponse { Success = false, Message = "Something went wrong." };
             }
         }
+
 
         public bool VerifyPassword(string plainPassword, string hashedPassword)
         {
